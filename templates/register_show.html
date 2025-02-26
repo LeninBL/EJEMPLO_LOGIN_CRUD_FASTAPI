@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link rel="stylesheet" href="/assets/css/style_welcome.css">
+    <link rel="stylesheet" href="/assets/css/style_register_show.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <aside class="sidebar">
+        <nav class="navbar">
+            <span class="nav-item">
+                <i class="fas fa-user"></i> {{ username }}
+            </span>
+            <a href="/users/me/profile" class="nav-item">Información Personal</a>
+            <a href="/users/me/show" class="nav-item">Mostrar Usuarios</a>
+            <a href="/users/me/register_show" class="nav-item">Registrar Nuevo Usuario</a>
+            <form id="logout" class="logout">
+                <button class="button_logout" type="submit">Cerrar sesión</button>
+            </form>
+        </nav>
+    </aside>
+
+
+    <div id="register" class="main-content">
+        <div class="welcome-container">
+            <h2>Gestión de Usuarios</h2>
+            <div class="form-and-table">
+                <div class="button-row">
+                    <input type="number" id="id-user" name="id-user" placeholder="ID">
+                    <button type="button" id="btn-create" onclick="createUser()">Crear Usuario</button>
+                    <button type="button" id="btn-read" onclick="readUser()">Mostrar Usuario</button>
+                    <button type="button" id="btn-update" onclick="updateUser()">Actualizar Usuario</button>
+                    <button type="button" id="btn-delete" onclick="deleteUser()">Eliminar Usuario</button>
+                </div>
+    
+                <!-- Formulario de registro -->
+                <form class="register-form">
+                    <div class="register-item">
+                        <label for="first-name">Nombre:</label>
+                        <input type="text" id="first-name" name="first_name" value="{{ userFullName }}" required>
+                    </div>
+                    <div class="register-item">
+                        <label for="last-name">Apellido:</label>
+                        <input type="text" id="last-name" name="last_name" value="{{ userLastName }}" required>
+                    </div>
+                    <div class="register-item">
+                        <label for="username">Nombre de Usuario:</label>
+                        <input type="text" id="username" name="username" value="{{ userEmail }}" required>
+                    </div>
+                    <div class="register-item">
+                        <label for="new-password">Contraseña:</label>
+                        <input type="password" id="new-password" name="new-password" required>
+                    </div>
+                    <div class="register-item">
+                        <label for="confirm-password">Confirmación de Contraseña:</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+                    </div>
+                    <div class="register-item">
+                        <label for="new-dob">Fecha de Nacimiento:</label>
+                        <input type="date" id="new-dob" name="new-dob">
+                    </div>
+                    <div class="register-item">
+                        <label for="location">Lugar de Nacimiento:</label>
+                        <input type="text" id="location" name="location" value="{{ userLocation }}">
+                    </div>
+                    <div class="register-item">
+                        <label for="bio">Puesto Profesional:</label>
+                        <input type="text" id="bio" name="bio" value="{{ userBio }}">
+                    </div>
+                </form>
+    
+                <!-- Tabla de usuarios -->
+                <table class="user-list">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Correo Electrónico</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Lugar de Nacimiento</th>
+                            <th>Puesto Profesional</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user_data in all_users_with_details %}
+                        <tr>
+                            <td data-label="ID"><span>{{ user_data.details.user_id }}</span></td>
+                            <td data-label="Nombres"><span>{{ user_data.details.first_name }}</span></td>
+                            <td data-label="Apellidos"><span>{{ user_data.details.last_name }}</span></td>
+                            <td data-label="Correo Electrónico"><span>{{ user_data.user.username }}</span></td>
+                            <td data-label="Fecha de Nacimiento"><span>{{ user_data.details.dob }}</span></td>
+                            <td data-label="Lugar de Nacimiento"><span>{{ user_data.details.location }}</span></td>
+                            <td data-label="Puesto Profesional"><span>{{ user_data.details.bio }}</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/assets/js/script_welcome.js"></script>
+    <script src="/assets/js/script_register_show.js"></script>
+</body>
+
+</html>

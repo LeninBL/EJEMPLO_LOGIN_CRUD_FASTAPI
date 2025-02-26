@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Usuarios</title>
+    <link rel="stylesheet" href="/assets/css/style_welcome.css">
+    <link rel="stylesheet" href="/assets/css/style_show.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <aside class="sidebar">
+        <nav class="navbar">
+            <span class="nav-item">
+                <i class="fas fa-user"></i> {{ username }}
+            </span>
+            <a href="/users/me/profile" class="nav-item">Información Personal</a>
+            <a href="/users/me/show" class="nav-item">Mostrar Usuarios</a>
+            <a href="/users/me/register_show" class="nav-item">Registrar Nuevo Usuario</a>
+            <form id="logout" class="logout">
+                <button class="button_logout" type="submit">Cerrar sesión</button>
+            </form>
+        </nav>
+    </aside>
+    
+<div class="main-content">
+    <div class="welcome-container">
+        <h2>Lista de Usuarios</h2>
+        <p>Aquí puedes ver la lista de todos los usuarios registrados en el sistema.</p>
+        <table class="user-list">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Correo Electrónico</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Lugar de Nacimiento</th>
+                    <th>Puesto Profesional</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user_data in all_users_with_details %}
+                <tr>
+                    <td data-label="ID"><span>{{ user_data.details.user_id }}</span></td>
+                    <td data-label="Nombres"><span>{{ user_data.details.first_name }}</span></td>
+                    <td data-label="Apellidos"><span>{{ user_data.details.last_name }}</span></td>
+                    <td data-label="Correo Electrónico"><span>{{ user_data.user.username }}</span></td>
+                    <td data-label="Fecha de Nacimiento"><span>{{ user_data.details.dob }}</span></td>
+                    <td data-label="Lugar de Nacimiento"><span>{{ user_data.details.location }}</span></td>
+                    <td data-label="Puesto Profesional"><span>{{ user_data.details.bio }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    <script src="/assets/js/script_welcome.js"></script>
+</body>
+</html>
